@@ -91,6 +91,12 @@ RUN GH_RUNNER_VERSION=${GH_RUNNER_VERSION:-$(curl --silent "https://api.github.c
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    apt-get install -y --no-install-recommends \
+        xvfb \
+        && rm -rf /var/lib/apt/lists/* \
+        && apt-get clean
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
