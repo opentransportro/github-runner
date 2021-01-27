@@ -97,6 +97,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
         && rm -rf /var/lib/apt/lists/* \
         && apt-get clean
 
+ENV TZ=Europe/Bucharest
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
